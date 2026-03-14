@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.env.osx": {
+        "TERM": "xterm-256color"
+    },
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.minimumContrastRatio": 1
+}

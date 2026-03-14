@@ -1,0 +1,87 @@
+# =====================================================================
+#  Roguelike TODO List – Python + curses
+#  Ordered roughly by priority / natural progression
+#  (2025–2026 edition – small & focused steps)
+# =====================================================================
+
+Phase 0 – Basics
+-------------------------------------------
+[x] Basic map (walls / floor)
+[x] Player @ that can move (wasd + arrows + vi-keys h j k l)
+[x] Collision with walls
+[x] Colors working (at least in real terminal)
+[X] Clean exit (q / Esc)
+
+Phase 1 – Make it feel like a roguelike
+--------------------------------------------------
+[X] Add spacebar = wait / pass turn (important for turn-based later)
+[ ] Message log (bottom 2–4 lines) – at least show "Bump!" when hitting wall
+[ ] Different floor symbol: . , , (use , for some tiles for variety)
+[ ] Remembered map / explored tiles (greyed out unseen areas)
+[ ] Very simple FOV (field of view) – radius 8–12, or cheap permissive FOV
+
+Phase 2 – Entities & first life in the dungeon
+---------------------------------------------------------
+[ ] Entity class (or at least dict) with y, x, char, color, name, blocks?
+[ ] Player becomes an Entity (move player logic into entity.move())
+[ ] Spawn 1–3 test monsters (goblin '@' red, rat 'r' brown, etc.)
+[ ] Monsters move randomly (or toward player if visible)
+[ ] Turn system: player acts → all monsters act → redraw
+[ ] Bump attack: move into monster = attack (simple 1d4 damage for now)
+[ ] Monsters have hp, die when hp <= 0, remove from list
+[ ] Message when you hit/kill something
+
+Phase 3 – Items & progression basics
+------------------------------------
+[ ] Item class: potion, sword, scroll, gold
+[ ] Items on ground ('!' '$' etc.), visible only when seen
+[ ] Pick up with 'g' (get)
+[ ] Simple inventory list (show with 'i')
+[ ] Use potion from inventory ('u' → select → drink)
+[ ] Health bar or hp number next to player (@ 12/20)
+
+Phase 4 – Dungeon generation & comfort features
+-----------------------------------------------
+[ ] Room + corridor generator (BSP / drunkard's walk / simple rooms first)
+[ ] Multiple dungeon levels (stairs > go down)
+[ ] Camera / viewport (scroll when player near edge – most important!)
+[ ] Save / load game (json pickle of player + level + entities)
+[ ] FOV + lighting variations (walls darker farther away)
+
+Phase 5 – Combat depth & polish
+-------------------------------
+[ ] Stats: str, dex, ac, damage dice
+[ ] Weapon / armor equipping
+[ ] Monster AI: wander → chase when seen → pathfind (simple or A*)
+[ ] Status effects (poison, confusion)
+[ ] Death screen + high score
+[ ] Sound? (beep or simple curses bell on hit)
+
+Phase 6 – "1.0" features most people aim for
+--------------------------------------------
+[ ] Procedural names for monsters/items
+[ ] Descriptions (look/examine with 'x' or mouse)
+[ ] Multiple monster types with different behaviors
+[ ] Levels / XP / leveling up
+[ ] Line of sight ranged attacks (wand, bow)
+[ ] Persistent level memory between visits (optional)
+
+Quick wins you can do in < 30 min each (good for motivation)
+------------------------------------------------------------
+[ ] Add diagonal movement (y u b n + numpad)
+[ ] Show FPS or turn counter in corner
+[ ] Player leaves footprints / blood trail (fun debug)
+[ ] Walls use different chars: ┌ ┐ └ ┘ ─ │ for borders
+[ ] Color health: green → yellow → red
+[ ] Add a welcome message on start
+
+Suggested order for next 1–2 weeks (pick 1–2 per session):
+1. Uncomment/fix movement + add message when bumping wall
+2. Add very basic message log (list of last 5 messages)
+3. Add one goblin that moves randomly every turn
+4. Simple FOV or visibility radius
+5. Camera follows player on bigger map
+6. First item (healing potion)
+
+Which of these sounds most exciting to tackle next?
+(or paste what you already have working and we'll continue from there)
