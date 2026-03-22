@@ -10,31 +10,29 @@ os.environ.setdefault("TERM", "xterm-256color")
 def main(stdscr):
     curses.curs_set(0)          # hide cursor
     stdscr.timeout(100)         # non-blocking getch (ms), feels more responsive
-    stdscr.keypad(True)         # enable arrow keys too (optional)
+    stdscr.keypad(True)         # enable arrow keys too
 
     # ─── Colors ───────────────────────────────────────────────
     curses.start_color()
     curses.init_pair(1, curses.COLOR_WHITE,  curses.COLOR_BLACK)   # player
     curses.init_pair(2, curses.COLOR_CYAN,   curses.COLOR_BLACK)   # floor
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)   # wall (dim)
-    curses.init_pair(4, curses.COLOR_BLACK,  curses.COLOR_WHITE)   # player bg (optional)
+    curses.init_pair(4, curses.COLOR_BLACK,  curses.COLOR_WHITE)   # player bg
+
+    # ─── Logger ───────────────────────────────────────────────
+    log_height = defines.LOG_HEIGHT
+    log_win = curses.newwin(log_height, curses.COLS, curses.LINES - log_height, 0)
+    logger = Logger(log_win, log_height, timestamp=True)   # ← use log_win, not stdscr
 
     player_y, player_x = 2, 2
 
-    Glogger = Logger(stdscr, defines.LOG_HEIGHT, True)
-
     while True:
-        stdscr.clear()
-
-        # Logger.info(Glogger, "Test string")
 
         # Draw map
         render.drawMap(defines.MAP, defines.WIDTH, defines.HEIGHT, stdscr)
 
         # Draw player
         stdscr.addstr(player_y, player_x, "@", curses.color_pair(1) | curses.A_BOLD)
-
-        stdscr.refresh()
 
         # ─── Input ────────────────────────────────────────────────
         try:
@@ -60,10 +58,18 @@ def main(stdscr):
         elif key == ord(' '):               # wait / rest turn
             pass
 
-        # Collision check
+        # ─── Collision check ──────────────────────────────────────
         if 0 <= new_y < defines.HEIGHT and 0 <= new_x < defines.WIDTH:
-            if defines.MAP[new_y][new_x] != 0:      # not wall
+            if defines.MAP[new_y][new_x] != 0:      # floor / walkable
                 player_y, player_x = new_y, new_x
+            else:
+                logger.player("Bump!")              # wall inside map
+        else:
+            logger.player("Bump!")                  # edge of map
+
+        # Refresh screens
+        stdscr.refresh()
+        log_win.refresh()
 
 if __name__ == "__main__":
     curses.wrapper(main)

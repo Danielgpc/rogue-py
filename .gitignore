@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# macOS / editors
+.DS_Store
+.idea/
+
+# Logs and temp
+*.log

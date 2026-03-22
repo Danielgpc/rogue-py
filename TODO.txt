@@ -15,7 +15,7 @@ Phase 0 – Basics
 Phase 1 – Make it feel like a roguelike
 --------------------------------------------------
 [X] Add spacebar = wait / pass turn (important for turn-based later)
-[ ] Message log (bottom 2–4 lines) – at least show "Bump!" when hitting wall
+[X] Message log (bottom 2–4 lines) – at least show "Bump!" when hitting wall
 [ ] Different floor symbol: . , , (use , for some tiles for variety)
 [ ] Remembered map / explored tiles (greyed out unseen areas)
 [ ] Very simple FOV (field of view) – radius 8–12, or cheap permissive FOV

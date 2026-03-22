@@ -17,4 +17,4 @@ HEIGHT = len(MAP)
 WIDTH  = len(MAP[0])
 
 # Set logger max height
-LOG_HEIGHT = 4
+LOG_HEIGHT = 6
