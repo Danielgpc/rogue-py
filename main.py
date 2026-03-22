@@ -1,27 +1,11 @@
 import curses
 import os
 
-from game.render import drawMap
+import game.defines as defines
+import game.render as render
+from game.logger import *
 
 os.environ.setdefault("TERM", "xterm-256color")
-
-# 0 = wall
-# 1 = floor
-MAP = [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,1,1,1,1,0,0,1,1,0],
-    [0,1,1,1,0,0,0,0,1,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,1,0,0,0,0,0,0,1,0],
-    [0,1,1,1,1,1,1,1,1,0],
-    [0,0,0,0,0,0,0,0,0,0],
-]
-
-HEIGHT = len(MAP)
-WIDTH  = len(MAP[0])
 
 def main(stdscr):
     curses.curs_set(0)          # hide cursor
@@ -37,11 +21,15 @@ def main(stdscr):
 
     player_y, player_x = 2, 2
 
+    Glogger = Logger(stdscr, defines.LOG_HEIGHT, True)
+
     while True:
         stdscr.clear()
 
+        # Logger.info(Glogger, "Test string")
+
         # Draw map
-        drawMap(MAP, WIDTH, HEIGHT, stdscr)
+        render.drawMap(defines.MAP, defines.WIDTH, defines.HEIGHT, stdscr)
 
         # Draw player
         stdscr.addstr(player_y, player_x, "@", curses.color_pair(1) | curses.A_BOLD)
@@ -73,8 +61,8 @@ def main(stdscr):
             pass
 
         # Collision check
-        if 0 <= new_y < HEIGHT and 0 <= new_x < WIDTH:
-            if MAP[new_y][new_x] != 0:      # not wall
+        if 0 <= new_y < defines.HEIGHT and 0 <= new_x < defines.WIDTH:
+            if defines.MAP[new_y][new_x] != 0:      # not wall
                 player_y, player_x = new_y, new_x
 
 if __name__ == "__main__":
